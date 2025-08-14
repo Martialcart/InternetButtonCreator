@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Save File Demo</title>
+<title>Internet Button Creator</title>
 </head>
 <body>
-
-<button id="saveButton">Save Text File</button>
+<input type="text">
+<input type="text">
+<button id="saveButton">Download Internet Button</button>
+<template id="htmlTemplate">
+    <html >
+	<head>
+	    <script id="redirectingScript" type="text/javascript">
+	    </script>
+	</head>
+	<body></body>
+    </html>
+</template>
 
 <script>
-  const page = document.documentElement.outerHTML;
+  const page = document.getElementById('htmlTemplate');
   console.log(page);
+  const script = page.querySelector('script');
+  console.log(script);
+
+  const jsFront = "window.location.replace(\""; 
+  let url = "https://www.janolavberg.no/";
+  const jsBack = "\")";
+  const pageLinkScript = jsFront + url + jsBack;
+  console.log(pageLinkScript);
+  
+  script.innerHTML = pageLinkScript;
+  console.log(page);
+
   document.getElementById('saveButton').addEventListener('click', function() {
   const content = "This is the content of the file to be saved.";
   const filename = "my_document.txt";
