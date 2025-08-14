@@ -8,7 +8,7 @@
 <button id="saveButton">Save Text File</button>
 
 <script>
-  const page = document.documentElement.innerHTML;
+  const page = document.documentElement.outerHTML;
   console.log(page);
   document.getElementById('saveButton').addEventListener('click', function() {
   const content = "This is the content of the file to be saved.";
