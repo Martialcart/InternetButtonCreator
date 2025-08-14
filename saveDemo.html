@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Save File Demo</title>
+</head>
+<body>
+
+<button id="saveButton">Save Text File</button>
+
+<script>
+  const page = document.documentElement.innerHTML;
+  console.log(page);
+  document.getElementById('saveButton').addEventListener('click', function() {
+  const content = "This is the content of the file to be saved.";
+  const filename = "my_document.txt";
+
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename; // This attribute triggers the download and suggests the filename
+  document.body.appendChild(a); // Append to body (can be hidden)
+  a.click(); // Programmatically click the link to trigger download
+  document.body.removeChild(a); // Remove the temporary link
+  URL.revokeObjectURL(url); // Clean up the object URL
+});
+</script>
+
+</body>
+</html>
