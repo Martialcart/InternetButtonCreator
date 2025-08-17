@@ -4,49 +4,31 @@
 <title>Internet Button Creator</title>
 </head>
 <body>
-<input type="text">
-<input type="text">
 <button id="saveButton">Download Internet Button</button>
-<template id="htmlTemplate">
-    <html >
-	<head>
-	    <script id="redirectingScript" type="text/javascript">
-	    </script>
-	</head>
-	<body></body>
-    </html>
-</template>
 
 <script>
-  const page = document.getElementById('htmlTemplate');
-  console.log(page);
-  const script = page.querySelector('script');
-  console.log(script);
+    let linkUrl = "https://www.janolavberg.no/";
+    let t = "/";// substituting t for '/', or else triggers tags inside strings
 
-  const jsFront = "window.location.replace(\""; 
-  let url = "https://www.janolavberg.no/";
-  const jsBack = "\")";
-  const pageLinkScript = jsFront + url + jsBack;
-  console.log(pageLinkScript);
+    document.getElementById('saveButton').addEventListener('click', function() {
+
+	console.log(linkUrl);
+	const content = `<html><head><body><script>
+			window.location.replace(\"${linkUrl}\")
+			<${t}script><${t}body><${t}html>`;//file content
+   	const filename = "LinkName";
+ 
+        const blob = new Blob([content], { type: 'text/html' });
+	const url = URL.createObjectURL(blob);
   
-  script.innerHTML = pageLinkScript;
-  console.log(page);
-
-  document.getElementById('saveButton').addEventListener('click', function() {
-  const content = "This is the content of the file to be saved.";
-  const filename = "my_document.txt";
-
-  const blob = new Blob([content], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename; // This attribute triggers the download and suggests the filename
-  document.body.appendChild(a); // Append to body (can be hidden)
-  a.click(); // Programmatically click the link to trigger download
-  document.body.removeChild(a); // Remove the temporary link
-  URL.revokeObjectURL(url); // Clean up the object URL
-});
+   	const a = document.createElement('a');
+   	a.href = url;
+   	a.download = filename; // This attribute triggers the download and suggests the filename
+   	document.body.appendChild(a); // Append to body (can be hidden)
+   	a.click(); // Programmatically click the link to trigger download
+   	document.body.removeChild(a); // Remove the temporary link
+   	URL.revokeObjectURL(url); // Clean up the object URL
+    });
 </script>
 
 </body>
